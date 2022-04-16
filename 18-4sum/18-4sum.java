@@ -24,12 +24,18 @@ class Solution {
                         ans.add(al);
                         left++;
                         right--;
+                         // Processing the duplicates of number 3
+                        while (left < right && nums[left] == al.get(2)) ++left;
+                    
+                        // Processing the duplicates of number 4
+                        while (left < right && nums[right] == al.get(3)) --right;
                     }
-                    //removing duplicates while using two ptr sum algo
-                    while(al.size()>0 && left<right && nums[left]==al.get(2)   && nums[right]==al.get(3)){
-                        left++;
-                        right--;
-                    }
+                    // //removing duplicates while using two ptr sum algo
+                    // while(al.size()>0 && left<right && nums[left]==al.get(2)   && nums[right]==al.get(3)){
+                    //     left++;
+                    //     right--;
+                    // }
+                      
                 }
                 //we will do j+1 , not j-1 bcz j-1 is i nd ith element can be same as jth but both jth elements cant be same
                 while(j+1<nums.length && nums[j+1]==nums[j])j++;
