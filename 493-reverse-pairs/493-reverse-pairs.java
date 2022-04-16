@@ -5,22 +5,22 @@ class Solution {
         // for(int num:nums){
         // System.out.println(num);
         // }
-        long[] numf=new long[nums.length];
-        for(int i=0;i<nums.length;i++){
-            numf[i]=(long)nums[i];
-        }
-        return mergeSortAndCount(numf,0,nums.length-1);
+        // long[] numf=new long[nums.length];
+        // for(int i=0;i<nums.length;i++){
+        //     numf[i]=(long)nums[i];
+        // }
+        return mergeSortAndCount(nums,0,nums.length-1);
         
     }
-    public int mergeAndCount(long[] nums,int l,int m,int r){
-        long[] left=Arrays.copyOfRange(nums,l,m+1);
-        long[] right=Arrays.copyOfRange(nums,m+1,r+1);
+    public int mergeAndCount(int[] nums,int l,int m,int r){
+        int[] left=Arrays.copyOfRange(nums,l,m+1);
+        int[] right=Arrays.copyOfRange(nums,m+1,r+1);
         int i=0,j=0,k=l;
         int inv=0;
         
          while(i<left.length && j<right.length){
-            if(left[i]<=(2*right[j]))i++;
-            else if(left[i]>2*right[j])
+            if(left[i]<=(2*(long)right[j]))i++;
+            else if(left[i]>2*(long)right[j])
             {
                inv+=left.length-i;
                 j++;
@@ -49,7 +49,7 @@ class Solution {
         
         return inv;
     }
-    public int mergeSortAndCount(long[] nums,int l,int r){
+    public int mergeSortAndCount(int[] nums,int l,int r){
         int count=0;
         if(l<r){
             int m=(l+r)/2;
