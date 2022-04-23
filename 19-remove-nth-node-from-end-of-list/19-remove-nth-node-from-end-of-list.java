@@ -17,8 +17,8 @@ class Solution {
             tmp=tmp.next;
             count++;
         }
-        if(count==1 && n==1)return null;
-        else if(n==count){
+       // if(count==1 && n==1)return null;
+        if(n==count){
             head=head.next;
             return head;
         }
