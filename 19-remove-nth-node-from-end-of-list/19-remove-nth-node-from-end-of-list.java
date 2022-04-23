@@ -12,7 +12,7 @@ class Solution {
     public ListNode removeNthFromEnd(ListNode head, int n) {
         ListNode dummy =new ListNode(); //having 0 as default value
         dummy.next=head;
-        ListNode slow=dummy;
+        ListNode slow=dummy; //slow and fast are not new nodes , there are just pointers pointing to dummy node
         ListNode fast=dummy;
         for(int i=0;i<n;i++){
         fast=fast.next;
@@ -21,8 +21,8 @@ class Solution {
             slow=slow.next;
             fast=fast.next;
         }
-        if(slow==dummy)return slow.next.next;
+  //      if(slow==dummy)return slow.next.next;  //edge case when head is returned
         slow.next=slow.next.next;
-        return head;
+        return dummy.next;  //dummy.next is returned so that edge case is also included
     }
 }
