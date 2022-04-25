@@ -17,7 +17,7 @@ class Solution {
             fast=fast.next.next;
             slow=slow.next;  
         }
-        if(fast!=null) slow=slow.next;
+         slow=slow.next;
         slow=reverse(slow);
         fast=head;
         while(slow!=null){ //slow has lesser length as compared to that of fast ll
