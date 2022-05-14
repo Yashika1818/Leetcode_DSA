@@ -16,7 +16,7 @@ class Solution {
              k=k%fact;
             
             n=n-1;
-          //  int rem=Integer.parseInt((s.charAt(remove)));
+          //  int rem=(s.charAt(remove))-'0';
             
             
             s.delete(remove,remove+1);
