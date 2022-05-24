@@ -22,6 +22,8 @@ class Solution
     long getSubstringWithEqual012(String str) 
     { 
         // code here
+        //difference in counts will give us the idea of equal counts of 0 1  2
+        // if difference is same then it means same number of 0 1 2 have been added 
         int c0=0;
         int c1=0;
         int c2=0;
