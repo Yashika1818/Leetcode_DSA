@@ -20,7 +20,8 @@ class Solution {
             if(n1>n2){
             int rem=n1%n2;
             int quot=n1/n2;
-            count+=(rem>0 ? n2 : 0)+(quot*n2);
+           // count+=(rem>0 ? n2 : 0)+(quot*n2);  //floor + something = ceil
+                count+=(int)Math.ceil((n1*1.0)/(n2*1.0))*n2;
             }else
                 count+=keys+1;
         }
