@@ -27,7 +27,7 @@ class Solution {
             char c=s.charAt(i);
             
             hms.put(c,hms.get(c)-1);
-            if(hms.get(c)==0)hms.remove(c);
+           if(hms.get(c)==0)hms.remove(c);
                 
              i++;  
             j++;
