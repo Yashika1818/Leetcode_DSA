@@ -14,33 +14,22 @@ class Solution {
         int min=Integer.MAX_VALUE;
         String minwin="";
         while(j<s.length()){
-            
-           
-               
+          //acquiring till we get the map equals
                 char c=s.charAt(j);
-                  map2[c]++;
-            
-               
+                 map2[c]++;
                 j++;
             
-            
-            // int len=j-i;
-            // if(equals(map1,map2)==true && len<min){min=len;
-            //         minwin=s.substring(i,j);
-            //            }
-         
-            while(i<s.length() && equals(map1,map2)==true){
+          
+         //once the map gets equal , we will start releasing till map gets            unequalized
+            while( equals(map1,map2)==true){
+                //each time when map is equal, we will check len and update                     it
                int len=j-i;
                   if(len<min){
-               min=len;
+                    min=len;
                     minwin=s.substring(i,j); 
-               }
+                   }
                 char ch=s.charAt(i);
-                 map2[ch]--;
-            
-                 
-          
-             
+                map2[ch]--;
                 i++;
                 
             }
