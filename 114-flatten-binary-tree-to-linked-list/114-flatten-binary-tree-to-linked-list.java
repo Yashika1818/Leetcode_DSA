@@ -14,28 +14,17 @@
  * }
  */
 class Solution {
+    //static global var 
+    TreeNode prev=null;
     public void flatten(TreeNode root) {
         if(root==null)return;
-        //solution from angle of faith
-        flatten(root.left);
+      //post order 
         flatten(root.right);
-        if(root.left!=null && root.right!=null){
-        TreeNode end=find_end(root.left);
-        TreeNode tmp=root.right;
-        root.right=root.left;
-        root.left=null;
-        end.right=tmp;
-        }else if(root.right==null){
-            root.right=root.left;
-            root.left=null;
-        }
+        flatten(root.left);
         
+        root.left=null;
+        root.right=prev;
+        prev=root;
     }
-    public TreeNode find_end(TreeNode root){
-        if(root==null)return null;
-        while(root.right!=null){
-            root=root.right;
-        }
-        return root;
-    }
+ 
 }
