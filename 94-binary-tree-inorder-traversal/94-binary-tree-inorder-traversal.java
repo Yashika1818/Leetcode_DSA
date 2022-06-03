@@ -13,6 +13,7 @@
  *     }
  * }
  */
+//THREADED BINARY TREE
 class Solution {
     public List<Integer> inorderTraversal(TreeNode root) {
         List<Integer> al=new ArrayList<>();
