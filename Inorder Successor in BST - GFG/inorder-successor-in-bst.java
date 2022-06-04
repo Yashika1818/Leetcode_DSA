@@ -140,7 +140,7 @@ class Solution
         //       return ios;
        
               if(curr.left==null){
-                  if(prev!=null && prev.data==x.data)return curr;
+                  if( prev==x)return curr;
                   prev=curr;
                   curr=curr.right;
               }else{
@@ -153,7 +153,7 @@ class Solution
                       iop.right=curr;
                       curr=curr.left;
                   }else{
-                       if(prev!=null && prev.data==x.data)return curr;
+                       if (prev==x)return curr;
                        prev=curr;
                       iop.right=null;
                       curr=curr.right;
