@@ -8,13 +8,11 @@ class LRUCache {
             this.val=val;
         }
     }
-    
     int size;
     int cap;
     Node head;
     Node tail;
     HashMap<Integer,Node> hm=new HashMap<>();
-    
     public void addFirst(Node node){
       //  Node node=new Node(value);
        if(head==null){
