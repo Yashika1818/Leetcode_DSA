@@ -20,15 +20,15 @@ class Solution {
        helper(root);
         return root;
     }
-    public int helper(TreeNode root){
-        if(root==null)return 0;
+    public void helper(TreeNode root){
+        if(root==null)return ;
         
          
-      int r=  helper(root.right);
+      helper(root.right);
         root.val=x+root.val;
         x=root.val;
-       int l= helper(root.left);
+        helper(root.left);
         
-        return x;
+        
     }
 }
