@@ -1,50 +1,47 @@
 class Solution {
-    class Pair{
-        int x;
-        int y;
-        int d;
-        Pair(int x,int y,int d){
-            this.x=x;
-            this.y=y;
-            this.d=d;
-        }
-    }
-    public int maxDistance(int[][] grid) {
-        ArrayDeque<Pair> q=new ArrayDeque<>();
-        int cnt1=0,cnt0=0;
-        for(int i=0;i<grid.length;i++){
-            for(int j=0;j<grid[0].length;j++){
-                if(grid[i][j]==1){
-                    q.add(new Pair(i,j,0));
-                    cnt1++;
-                }else{
-                    cnt0++;
-                }
-            }
-        }
-        if(cnt0==0 || cnt1==0)return -1;
-        
-        int max=0;
-        boolean[][] visited=new boolean[grid.length][grid[0].length];
-        while(q.size()>0){
-        Pair rem=q.remove();
-        if(visited[rem.x][rem.y]==true)continue;
-        visited[rem.x][rem.y]=true;
-        
-        if(rem.d>max){
-            max=rem.d;
-        }
-        
-        addNeighbour(q,visited,rem.x+1,rem.y,rem.d+1);
-        addNeighbour(q,visited,rem.x,rem.y+1,rem.d+1);
-        addNeighbour(q,visited,rem.x-1,rem.y,rem.d+1);
-        addNeighbour(q,visited,rem.x,rem.y-1,rem.d+1);
-        }
-        return max;
-    }
-    public void addNeighbour(ArrayDeque<Pair> q,boolean[][] visited,int x,int y,int d){
-        if(x<0 || y<0 || x>=visited.length || y>=visited.length || visited[x][y]==true)return;
-        q.add(new Pair(x,y,d));
-    }
-    
+	int rows;
+	int cols;
+
+	public boolean isValid(int row, int col) {
+		return row >= 0 && col >= 0 && row < rows && col < cols;
+	}
+
+	int[][] moves = new int[][] { {0, -1}, {0, 1}, {-1, 0}, {1, 0} };
+
+	public int maxDistance(int[][] grid) {
+		int n = grid.length,m=grid[0].length;
+		rows = n;cols = m;
+		Queue<int[]> queue = new LinkedList<>();
+		for(int i=0;i<n;i++){
+			for(int j=0;j<m;j++){
+				if(grid[i][j]==1){
+					queue.add(new int[]{i,j});
+				}
+			}
+		}
+		return bfs(grid,queue);
+	}
+
+	int bfs(int[][] grid,Queue<int[]> queue){
+		int ans = 0;
+		while(!queue.isEmpty()){
+			int n = queue.size();
+			boolean isFound = false;
+			while(n>0){
+				int[] water = queue.poll();
+				for(int[] move:moves){
+					int row = move[0]+water[0];
+					int col = move[1]+water[1];
+					if(!isValid(row,col)) continue;
+					if(grid[row][col]==1) continue;
+					queue.add(new int[]{row,col});
+					grid[row][col]=1;
+					isFound=true;
+				}
+				n--;
+			}
+			if(isFound) ans++;
+		}
+		return ans==0?-1:ans;
+	}
 }
