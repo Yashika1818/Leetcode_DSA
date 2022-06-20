@@ -39,7 +39,10 @@ class Solution
     public int findMotherVertex(int V, ArrayList<ArrayList<Integer>>adj)
     {
         // Code here
-        
+        //it's tc is V(V+E) bcz we are checking for every Vertex
+        //but if we visit thro a vertex 3 nd then move 4 , not all vertices are traversed .
+        // it means 3 and 4 vertex can't give results, we can skip dfs for 3 and 4 both once they are visited.
+        //but in my code, dfs for 3 and 4 will be separately done.
         for(int i=0;i<V;i++){
             cnt=0;
             boolean[] visited=new boolean[V];
