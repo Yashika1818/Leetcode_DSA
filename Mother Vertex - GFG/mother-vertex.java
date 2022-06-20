@@ -39,6 +39,7 @@ class Solution
     public int findMotherVertex(int V, ArrayList<ArrayList<Integer>>adj)
     {
         // Code here
+        
         for(int i=0;i<V;i++){
             cnt=0;
             boolean[] visited=new boolean[V];
@@ -51,8 +52,7 @@ class Solution
     }
     
     public void dfs(ArrayList<ArrayList<Integer>>adj,int src,boolean[] visited){
-        
-        
+
         cnt++;
         visited[src]=true;
         for(int nbr:adj.get(src)){
@@ -60,6 +60,7 @@ class Solution
                 dfs(adj,nbr,visited);
             }
         }
+      
         return;
     }
 }
