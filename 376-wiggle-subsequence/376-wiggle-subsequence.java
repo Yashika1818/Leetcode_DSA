@@ -1,30 +1,29 @@
-//memoization 
+//tabulation
 class Solution {
     public int wiggleMaxLength(int[] nums) {
         int[][][] dp=new int[nums.length+1][nums.length+1][3];
-        for(int[][] d:dp){
-            for(int[] row:d){
-                Arrays.fill(row,-1);
+   
+        for(int i=nums.length-1;i>=0;i--){
+            for(int j=i-1;j>=-1;j--){
+                for(int k=2;k>=0;k--){
+        int not_take=dp[i+1][j+1][k];
+        int take=0;
+        
+        if(k==2 || (nums[i]-nums[j+1]>0 && k==0) ){
+            take=1+dp[i+1][i][1];
+        }
+        if(k==2 || (nums[i]-nums[j+1]<0 && k==1) ){
+            take=Math.max(take,1+dp[i+1][i][0]);
+        }
+                
+     dp[i][j+1][k]=  Math.max(not_take,take);
+      
+                }
             }
         }
-        return helper(0,-1,2,nums,dp);  
+    
+        return dp[0][0][2];  
     }
     
-    public int helper(int i,int prev_i,int check,int[] nums, int[][][] dp){
-        if(i==nums.length){
-            return 0;
-        }
-        if(dp[i][prev_i+1][check]!=-1)return dp[i][prev_i+1][check];
-        int not_take=helper(i+1,prev_i,check,nums,dp);
-        int take=0;
-        //take
-        if(prev_i==-1 || (nums[i]-nums[prev_i]>0 && check==0 ) ){
-            take=1+helper(i+1,i,1,nums,dp);
-        }
-        if(prev_i==-1 || (nums[i]-nums[prev_i]<0 && check==1) ){
-            take=Math.max(take,1+helper(i+1,i,0,nums,dp));
-        }
-        return dp[i][prev_i+1][check]=Math.max(not_take,take);
-        
-    }
+ 
 }
