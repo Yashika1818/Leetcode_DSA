@@ -1,6 +1,7 @@
 class Solution {
     public String smallestStringWithSwaps(String s, List<List<Integer>> pairs) {
         parent=new int[s.length()];
+        rank=new int[s.length()];
         al=new ArrayList<>();
         for(int i=0;i<s.length();i++){
             parent[i]=i;
@@ -15,7 +16,7 @@ class Solution {
            
             // PriorityQueue<Character> l2=al.get(lead2);
             if(lead1!=lead2){
-                parent[lead2]=lead1;
+               union(lead1,lead2);
                 // while(l2.size()>0){
                 //     l1.add(l2.remove());
                 // }
@@ -41,7 +42,18 @@ class Solution {
     }
     int[] parent;
     ArrayList<PriorityQueue<Character>> al;
+        int[] rank;
     
+    void union(int x, int y){
+        if(rank[x] < rank[y]){
+            parent[x] = y;
+        } else if(rank[y] < rank[x]){
+            parent[y] = x;
+        } else {
+            parent[y] = x;
+            rank[x]++;
+        }
+    }
     public int find(int x){
         if(parent[x]==x)return x;
         else{
