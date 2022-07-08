@@ -1,14 +1,7 @@
+//Bellman ford algo
 class Solution {
-    class Pair{
-        int nbr;
-        int wt;
-        Pair(int nbr,int wt){
-            this.nbr=nbr;
-            this.wt=wt;
-        }
-    }
     public int findCheapestPrice(int n, int[][] flights, int src, int dst, int k) {
-        //make graph
+        
        
     int[] d1=new int[n];
     for(int i=0;i<n;i++){
@@ -16,7 +9,7 @@ class Solution {
         else
             d1[i]=(int)1e9;
     }
-    int[] d2=new int[n];
+    int[] d2;
      d2=d1.clone();
    
         for(int i=1;i<=k+1;i++){
