@@ -1,4 +1,4 @@
-//Memoization
+//Tabulation
 
 class Solution {
     public boolean wordBreak(String s, List<String> wordDict) {
@@ -6,27 +6,25 @@ class Solution {
         for(String str:wordDict){
             set.add(str);
         }
-        int[] dp=new int[s.length()];
-        Arrays.fill(dp,-1);
-        return helper(s,set,s.length()-1,dp);
-    }
-    
-    public boolean helper(String s,HashSet<String> set,int idx,int[] dp){
-         if(idx<0)return true;
-        if(dp[idx]!=-1)return (dp[idx]==1) ? true: false;
-        for(int i=idx;i>=0;i--){
-            String str=s.substring(i,idx+1);
+        boolean[] dp=new boolean[s.length()+1];
+        dp[0]=true;
+        for(int idx=1;idx<=s.length();idx++){
+           for(int i=idx-1;i>=0;i--){
+            String str=s.substring(i,idx);
             if(set.contains(str)){
-                boolean ans=helper(s,set,i-1,dp);
+                boolean ans=false;
+              
+                 ans=dp[i];
+               
                 if(ans){
-                    dp[idx]=1 ;
-                    return true ;
-                }
-                    
+                    dp[idx]=true ;
+                    break;
+                  }     
             }
-            
         }
-         dp[idx]=0 ;
-        return false ;
+          if(dp[idx]!=true)  dp[idx]=false;
+        }
+        
+        return dp[s.length()];
     }
 }
