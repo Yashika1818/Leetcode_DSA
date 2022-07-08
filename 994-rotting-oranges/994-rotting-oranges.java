@@ -1,17 +1,18 @@
 class Solution {
-    class Pair{
-        int x;
-        int y;
-        int t;
-        
-        Pair(int x,int y,int t){
-            this.x=x;
-            this.y=y;
-            this.t=t;
-        }
-    }
+   class Pair{
+       int ith;
+       int jth;
+       int t;
+       Pair(int ith,int jth,int t){
+           this.ith=ith;
+           this.jth=jth;
+           this.t=t;
+       }
+   }
+     
     public int orangesRotting(int[][] grid) {
-        ArrayDeque<Pair> q=new ArrayDeque<>();
+        boolean[][] vis=new boolean[grid.length][grid[0].length];
+        Queue<Pair> q=new LinkedList<>();
         int fresh=0;
         for(int i=0;i<grid.length;i++){
             for(int j=0;j<grid[0].length;j++){
@@ -22,43 +23,35 @@ class Solution {
                 }
             }
         }
+      
         int time=0;
-        boolean[][] visited=new boolean[grid.length][grid[0].length];
         while(q.size()>0){
-            //remove
             Pair rem=q.remove();
-            //mark*
-            if(visited[rem.x][rem.y]==true){
-                continue;
-            }
-            visited[rem.x][rem.y]=true;
-            //work
-            if(rem.t>time){
-                time=rem.t;
-            }
-            if(grid[rem.x][rem.y]==1)fresh--;
-            //add neighbour*
-            addNeighbour(rem.x+1,rem.y,grid,visited,rem.t+1,q);
-            addNeighbour(rem.x,rem.y+1,grid,visited,rem.t+1,q);
-              addNeighbour(rem.x-1,rem.y,grid,visited,rem.t+1,q);
-              addNeighbour(rem.x,rem.y-1,grid,visited,rem.t+1,q);
+            
+            if(vis[rem.ith][rem.jth]==true)continue;
+            vis[rem.ith][rem.jth]=true;
+            
+            time=Math.max(time,rem.t);
             
             
+            int i=rem.ith;
+            int j=rem.jth;
+            if(grid[i][j]==1)fresh--; //if removal one is fresh , now has become rotten after being added in queue
+            int t=rem.t;
+            addN(grid,q,vis,i+1,j,t+1);
+             addN(grid,q,vis,i-1,j,t+1);
+             addN(grid,q,vis,i,j+1,t+1);
+             addN(grid,q,vis,i,j-1,t+1);
+            
         }
-        
-        if(fresh==0){
-            return time;
-        }else{
-            return -1;
-        }
+       
+       if(fresh==0)return time;
+       return -1;
         
     }
-    
-    public void addNeighbour(int x,int y,int[][] grid,boolean[][] visited,int t,ArrayDeque<Pair> q){
-        //rotten oranges has already been visited
-        if(x<0 || x>=grid.length || y<0 || y>=grid[0].length)return;
-        if(visited[x][y]==true || grid[x][y]==0)return;
-        q.add(new Pair(x,y,t));
-        
+    public void addN(int[][] grid,Queue<Pair> q,boolean[][] vis,int i,int j,int t){
+        if(i<0 || j<0 || i>=grid.length || j>=grid[0].length || vis[i][j]==true || grid[i][j]==0)return;
+     
+        q.add(new Pair(i,j,t));
     }
 }
