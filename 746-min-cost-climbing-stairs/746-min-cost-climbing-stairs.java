@@ -1,4 +1,4 @@
-//recursion
+//memoization
 
 class Solution {
     public int minCostClimbingStairs(int[] cost) {
