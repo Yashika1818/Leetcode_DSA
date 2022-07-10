@@ -1,13 +1,23 @@
-//memoization with one call
+//tabulation
 
 class Solution {
     public int minCostClimbingStairs(int[] cost) {
-       int[] dp=new int[cost.length+1];
-        Arrays.fill(dp,-1);
-    int ans1=helper(cost,-1,dp);
+       int[] dp=new int[cost.length+2];
+      //  Arrays.fill(dp,-1);
+        dp[cost.length +1]=(int)1e9;
+        dp[cost.length]=0;
+        for(int i=cost.length-1;i>=0;i--){
+             int ans1=(int)1e9;
+       
+        ans1=Math.min(dp[i+1],dp[i+2]);
+           ans1+=cost[i];
+         dp[i]=ans1;
+       
+        }
+  
     
         
-        return ans1;
+        return Math.min(dp[0],dp[1]);
     }
     
     public int helper(int[] cost,int i,int[] dp){
