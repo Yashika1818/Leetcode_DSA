@@ -23,7 +23,7 @@ class Solution {
         int d=dfs(grid,vis,i,j-1);
         
         
-      c+=h+r+v+d+1;
+      c=h+r+v+d+1;
         return c;
     }
 }
