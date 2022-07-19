@@ -9,6 +9,7 @@ class Solution {
         al.add(1);
         al.add(1);
         ans.add(al);
+         if(numRows==2)return ans;
         for(int i=2;i<numRows;i++){
             List<Integer> all=new ArrayList<>();
             all.add(1);
