@@ -5,25 +5,20 @@ class Solution {
         al1.add(1);
         ans.add(al1);
         if(numRows==1)return ans;
-          List<Integer> al2=new ArrayList<>();
-        al2.add(1);
-        al2.add(1);
-        ans.add(al2);
-        if(numRows==2)return ans;
-        
+        List<Integer> al=new ArrayList<>();
+        al.add(1);
+        al.add(1);
+        ans.add(al);
         for(int i=2;i<numRows;i++){
-              List<Integer> al=new ArrayList<>();
-            al.add(1);
+            List<Integer> all=new ArrayList<>();
+            all.add(1);
             for(int j=1;j<i;j++){
-                Integer n=ans.get(i-1).get(j-1);
-                Integer n2=ans.get(i-1).get(j);
-                al.add(n+n2);
+                int sum=ans.get(i-1).get(j-1)+ans.get(i-1).get(j);
+                all.add(sum);
             }
-            
-            al.add(1);
-            ans.add(al);
+              all.add(1);
+            ans.add(all);
         }
-        
         return ans;
     }
 }
