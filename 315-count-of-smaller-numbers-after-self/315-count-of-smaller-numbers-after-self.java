@@ -1,61 +1,71 @@
 class Solution {
+    int[] ans;
+    public List<Integer> countSmaller(int[] nums) {
+        int[] ind=new int[nums.length];
+        ans=new int[nums.length];
+        for(int i=0;i<nums.length;i++){
+            ind[i]=i;
+        }
 
-  int[] count;
-public List<Integer> countSmaller(int[] nums) {
-    List<Integer> res = new ArrayList<Integer>();     
-
-    count = new int[nums.length];
-    int[] indexes = new int[nums.length];
-    for(int i = 0; i < nums.length; i++){
-    	indexes[i] = i;
+     //   int[] tmp=new int[nums.length];
+       mergeSort(nums,ind,0,nums.length-1);
+        List<Integer> al=new ArrayList<>();
+        for(int a:ans){
+            al.add(a);
+        }
+        return al;
     }
-    mergesort(nums, indexes, 0, nums.length - 1);
-    for(int i = 0; i < count.length; i++){
-    	res.add(count[i]);
+    
+    
+    public void mergeSort(int[] arr,int[] ind,int lo,int hi){
+       
+        
+        if(lo<hi){
+            int mid=(lo+hi)/2;
+            mergeSort(arr,ind,lo,mid);
+           mergeSort(arr,ind,mid+1,hi);
+           merge(arr,ind,lo,mid,mid+1,hi);
+        }
+        
+        return;
     }
-    return res;
-}
-private void mergesort(int[] nums, int[] indexes, int start, int end){
-	if(end <= start){
-		return;
-	}
-	int mid = (start + end) / 2;
-	mergesort(nums, indexes, start, mid);
-	mergesort(nums, indexes, mid + 1, end);
-	
-	merge(nums, indexes, start, end);
-}
-private void merge(int[] nums, int[] indexes, int start, int end){
-	int mid = (start + end) / 2;
-	int left_index = start;
-	int right_index = mid+1;
-	int rightcount = 0;    	
-	int[] new_indexes = new int[end - start + 1];
+    
+    public void merge(int[] arr,int[] ind,int lo1,int hi1,int lo2,int hi2){
+        
+        int i=lo1;
+        int j=lo2;
+    int rightcount = 0;    	
+       int[] tmp=new int[hi2-lo1+1];
+        int k=0;
+        while(i<=hi1 && j<=hi2){
+            if(arr[ind[i]] <= arr[ind[j]]){
+               tmp[k]= ind[i];
+               // System.out.println(1);
+                ans[ind[i]]+=rightcount;
+                k++;
+             i++;
+            }else{
+                rightcount++;
+                tmp[k++]=ind[j++];
+            
+            }
+        }
+        
+         while(i <= hi1){
+        tmp[k] = ind[i];
+              ans[ind[i]]+=rightcount;
+             i++;
+             k++;
+         }
 
-	int sort_index = 0;
-	while(left_index <= mid && right_index <= end){
-		if(nums[indexes[right_index]] < nums[indexes[left_index]]){
-			new_indexes[sort_index] = indexes[right_index];
-			rightcount++;
-			right_index++;
-		}else{
-			new_indexes[sort_index] = indexes[left_index];
-			count[indexes[left_index]] += rightcount;
-			left_index++;
-		}
-		sort_index++;
-	}
-	while(left_index <= mid){
-		new_indexes[sort_index] = indexes[left_index];
-		count[indexes[left_index]] += rightcount;
-		left_index++;
-		sort_index++;
-	}
-	while(right_index <= end){
-		new_indexes[sort_index++] = indexes[right_index++];
-	}
-	for(int i = start; i <= end; i++){
-		indexes[i] = new_indexes[i - start];
-	}
-}
+    while(j <= hi2)
+        tmp[k++] = ind[j++];
+
+    for(i = lo1 ; i <= hi2; i++)
+        ind[i] = tmp[i-lo1];
+        
+        return;
+    }
+    
+  
 }
