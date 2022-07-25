@@ -1,0 +1,16 @@
+class Solution {
+    public int partitionDisjoint(int[] nums) {
+        int p=0;
+        int mtp=nums[0];
+        int mts=nums[0];
+        for(int i=1;i<nums.length;i++){
+            mts=Math.max(mts,nums[i]);
+            if(nums[i]<mtp){
+                p=i;
+                mtp=mts;
+            }
+        }
+        
+        return p+1;
+    }
+}
