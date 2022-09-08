@@ -13,34 +13,17 @@
  *     }
  * }
  */
-//THREADED BINARY TREE
 class Solution {
     public List<Integer> inorderTraversal(TreeNode root) {
-        List<Integer> al=new ArrayList<>();
-        TreeNode curr=root;
-        while(curr!=null){
-            if(curr.left==null){
-                al.add(curr.val);
-                curr=curr.right;
-            } else{
-                TreeNode iop=curr.left; //inorder predecessor
-                while(iop.right!=null && iop.right!=curr){
-                    iop=iop.right;
-                }
-                //if curr.left has not been processed
-                if(iop.right==null){
-                    iop.right=curr;
-                    curr=curr.left;
-                    
-                }else{ // iop.right==curr (curr.left has been processed and now this is visited 2nd tym)
-                    iop.right=null;
-                    al.add(curr.val);
-                    curr=curr.right;
-                }
-                
-            }
-        }
-        
-        return al;
+        List<Integer> ans=new ArrayList<>();
+        if(root==null)return ans;
+        sol(root,ans);
+        return ans;
+    }
+    public void sol(TreeNode root,List<Integer> ans){
+        if(root==null)return;
+        sol(root.left,ans);
+        ans.add(root.val);
+        sol(root.right,ans);
     }
 }
