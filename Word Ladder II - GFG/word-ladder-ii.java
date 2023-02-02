@@ -84,16 +84,18 @@ class Solution
         ar.add(startWord);
         set.remove(startWord);
         q.add(new Pair(startWord,ar,1));
+        
         while(q.size()>0){
             Pair p=q.remove();
             //  System.out.println(p.str +" "+p.al);
-            if((p.str).equals(targetWord)==false)set.remove(p.str);
-            if(p.moves>minmoves) return ans;
-            if((p.str).equals(targetWord) && p.moves<=minmoves){
+            set.remove(p.str);
+            if(p.moves>minmoves) return ans; //it means target has been achieved at minmoves level
+            if((p.str).equals(targetWord)){
                 minmoves=p.moves;
+
                 ans.add(p.al);
             }
-            if((p.str).equals(targetWord))continue;
+            // if((p.str).equals(targetWord))continue;
             for(int j=0;j<startWord.length();j++){
                 for(char ch='a';ch<='z';ch++){
                     StringBuilder s=new StringBuilder(p.str);
