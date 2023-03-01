@@ -29,50 +29,41 @@ class GFG
 
 
 class Solution
-
 {
     class Pair{
-        String str;
-        int dist;
-        Pair(String str,int dist){
-            this.str=str;
-            this.dist=dist;
+        String s;
+        int cnt;
+        Pair(String s,int cnt){
+            this.s=s;
+            this.cnt=cnt;
         }
     }
     public int wordLadderLength(String startWord, String targetWord, String[] wordList)
     {
         // Code here
-        HashSet<String> set=new HashSet<>();
-        for(String s:wordList){
-            set.add(s);
+        HashSet<String> hm=new HashSet<>();
+        for(int i=0;i<wordList.length;i++){
+            hm.add(wordList[i]);
         }
-        
         Queue<Pair> q=new LinkedList<>();
-        // rmwa
         q.add(new Pair(startWord,1));
+        hm.remove(startWord);
         while(q.size()>0){
-            Pair p=q.remove();
+            Pair r=q.remove();
             
-            if(set.contains(p.str)){
-                set.remove(p.str);
-            }
+            if((r.s).equals(targetWord))return r.cnt;
             
-            if((p.str).equals(targetWord))
-            return p.dist;
-            for(int j=0;j<startWord.length();j++){
-            for(int i=1;i<=26;i++){
-                char c=(char)(96+i);
-                StringBuilder s=new StringBuilder(p.str);
-                s.setCharAt(j,c);
-                String st=s.toString();
-                if(set.contains(st)){
-                    q.add(new Pair(st,p.dist+1));
+            for(int i=0;i<startWord.length();i++){
+            for(char ch='a';ch<='z';ch++){
+                StringBuilder sb=new StringBuilder(r.s);
+                sb.setCharAt(i,ch);
+                String str=sb.toString();
+                if(hm.contains(str)){
+                q.add(new Pair(str,r.cnt+1));
+                hm.remove(str);
                 }
-                
-                
             }
             }
-            
         }
         return 0;
     }
