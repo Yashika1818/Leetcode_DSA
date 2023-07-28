@@ -1,21 +1,20 @@
 class Solution {
     public int maxCoins(int[] nums) {
         int[][] dp=new int[nums.length+1][nums.length+1];
-        for(int[] d:dp){
-            Arrays.fill(d,-1);
-        }
-        return recursion(nums,0,nums.length-1,dp);
-    }
-    public int recursion(int[] nums,int i,int j,int[][] dp){
-        if(i>j)return 0;
-        if(dp[i][j]!=-1)return dp[i][j];
-        int maxi=Integer.MIN_VALUE;
+        for(int i=nums.length-1;i>=0;i--){
+            for(int j=0;j<nums.length;j++){
+                if(i>j)continue;
+                  int maxi=Integer.MIN_VALUE;
         for(int k=i;k<=j;k++){
             int mid=nums[k]*(i-1 == -1 ? 1 : nums[i-1])*(j+1 == nums.length ? 1 : nums[j+1]);
-            int left=recursion(nums,i,k-1,dp);
-            int right=recursion(nums,k+1,j,dp);
+            int left=(k-1==-1? 0 :dp[i][k-1]);
+            int right=dp[k+1][j];
             maxi=Math.max(maxi,mid+left+right);
         }
-        return dp[i][j]=maxi;
+         dp[i][j]=maxi;
+            }
+        }
+        return dp[0][nums.length-1];
     }
+
 }
