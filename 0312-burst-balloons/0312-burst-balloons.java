@@ -7,7 +7,7 @@ class Solution {
         return recursion(nums,0,nums.length-1,dp);
     }
     public int recursion(int[] nums,int i,int j,int[][] dp){
-        if(i>j)return dp[i+1][j+1]=0;
+        if(i>j)return 0;
         if(dp[i+1][j+1]!=-1)return dp[i+1][j+1];
         int maxi=Integer.MIN_VALUE;
         for(int k=i;k<=j;k++){
