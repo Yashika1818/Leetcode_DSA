@@ -38,7 +38,7 @@ class Solution
 	        total+=a;
 	    }
 	     minDiff=total;
-	    int tar=(total+1)/2;
+	    int tar=(total)/2;
 	    Boolean[][] dp=new Boolean[n+1][tar+1];
 	    boolean exist=recursion(arr,0,0,tar,total,dp);
 	    return minDiff;
