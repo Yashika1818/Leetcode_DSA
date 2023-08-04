@@ -1,24 +1,43 @@
 class Solution {
     public int lengthOfLIS(int[] nums) {
-        int[][] dp=new int[nums.length+1][nums.length+2];
-        for(int[] d:dp){
-            Arrays.fill(d,-1);
+        ArrayList<Integer> al=new ArrayList<>();
+        al.add(nums[0]);
+        for(int i=1;i<nums.length;i++){
+            if(nums[i]>al.get(al.size()-1))
+            {
+            al.add(nums[i]);
+            }else
+            justGreaterorEqual(al,nums[i]);
+            // System.out.println(al);
         }
-        for(int p=-1;p<nums.length;p++){
-            dp[nums.length][p+1]=0;
-        }
-        for(int i=nums.length-1;i>=0;i--){
-            for(int p=nums.length-1;p>=-1;p--){
-                int take=Integer.MIN_VALUE;
-        if(p==-1 || nums[p]<nums[i]){
-            take=1+dp[i+1][i+1];
-        }
-        int notTake=dp[i+1][p+1];
         
-         dp[i][p+1]=Math.max(take,notTake);
+        return al.size();
+    }
+    public void justGreaterorEqual(ArrayList<Integer> al,int x){
+        if(al.size()==1){
+            al.set(0,x);
+            return;
+        }
+        // 10 13 14  12
+        int i=0;
+        int j=al.size()-1;
+        int idx=0;
+        
+        while(i<=j){
+           int mid=(i+j)/2;
+            if(al.get(mid)<x)i=mid+1;
+            else if(al.get(mid)>x){
+                idx=mid;
+                j=mid-1;
+            }
+            else{
+                idx=mid;
+                break;
             }
         }
-        return dp[0][0];
+        al.set(idx,x);
+        return;
     }
-
+    
+    // 2 4 5 6 7 12
 }
