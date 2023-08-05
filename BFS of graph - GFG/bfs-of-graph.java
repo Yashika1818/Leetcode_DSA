@@ -50,7 +50,7 @@ class Solution {
             ans.add(r);
             
             for(int nbr:adj.get(r)){
-                if(vis[nbr]==false)
+                // if(vis[nbr]==false)
                 q.add(nbr);
             }
         }
