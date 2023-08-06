@@ -33,41 +33,27 @@ class GFG {
 
 
 class Solution {
-    public class Pair{
-        int u;
-        int u_sr;
-        Pair(int u,int u_sr){
-            this.u=u;
-            this.u_sr=u_sr;
-        }
-    }
     // Function to detect cycle in an undirected graph.
     public boolean isCycle(int V, ArrayList<ArrayList<Integer>> adj) {
         // Code here
         boolean[] vis=new boolean[V];
         for(int i=0;i<V;i++){
             if(vis[i]==false){
-                boolean check=cycle(i,adj,vis);
+                boolean check=dfs(adj,vis,i,-1);
                 if(check==true)return true;
             }
         }
         return false;
         
     }
-    public boolean cycle(int src,ArrayList<ArrayList<Integer>> adj,boolean[] vis){
-        Queue<Pair> q=new LinkedList<>();
-        q.add(new Pair(src,-1));
-        while(q.size()!=0){
-            Pair r=q.remove();
-            if(vis[r.u]==true)continue;
-            vis[r.u]=true;
-            
-            for(int nbr:adj.get(r.u)){
-                if(nbr!=r.u_sr && vis[nbr]==true)return true;
-                q.add(new Pair(nbr,r.u));
-            }
-            
-            
+    public boolean dfs(ArrayList<ArrayList<Integer>> adj,boolean[] vis,int curr,int src){
+        // if(vis[curr]==true)return false;
+        vis[curr]=true;
+        for(int nbr:adj.get(curr)){
+            if(nbr!=src && vis[nbr]==true)return true;
+            boolean check=false;
+            if(vis[nbr]==false)check=dfs(adj,vis,nbr,curr);
+            if(check==true)return true;
         }
         return false;
     }
