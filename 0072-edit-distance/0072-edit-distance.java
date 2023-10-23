@@ -11,18 +11,16 @@ class Solution {
         else if(i==w1.length())return dp[i][j]=w2.length()-j;
         else if(j==w2.length()) return dp[i][j]=w1.length()-i;
         if(dp[i][j]!=-1)return dp[i][j];
-        int count1=(int)1e9,count2=(int)1e9,count3=(int)1e9,count4=(int)1e9;
+        int count=0;
         
         if(w1.charAt(i)==w2.charAt(j)){
-            count1=rec(w1,w2,i+1,j+1,dp);
+            count=rec(w1,w2,i+1,j+1,dp);
         }else{
-            count2=1+rec(w1,w2,i,j+1,dp);
-            count3=1+rec(w1,w2,i+1,j+1,dp);
-            count4=1+rec(w1,w2,i+1,j,dp);
-          
+        
+            count=1+Math.min(rec(w1,w2,i,j+1,dp),Math.min(rec(w1,w2,i+1,j+1,dp),rec(w1,w2,i+1,j,dp)));
             
         }
-        return dp[i][j]=Math.min(count1,Math.min(count2,Math.min(count3,count4)));
+        return dp[i][j]=count;
     }
 }
 
