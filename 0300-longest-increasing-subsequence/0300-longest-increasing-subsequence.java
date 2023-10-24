@@ -1,43 +1,19 @@
 class Solution {
     public int lengthOfLIS(int[] nums) {
-        ArrayList<Integer> al=new ArrayList<>();
-        al.add(nums[0]);
-        for(int i=1;i<nums.length;i++){
-            if(nums[i]>al.get(al.size()-1))
-            {
-            al.add(nums[i]);
-            }else
-            justGreaterorEqual(al,nums[i]);
-            // System.out.println(al);
+        int[][] dp=new int[nums.length+1][nums.length+1];
+   
+        for(int prev=nums.length-1;prev>=-1;prev--){
+            for(int i=nums.length-1;i>=0;i--){
+                int take=0,nottake=0;
+        if(prev==-1 || nums[prev]<nums[i]){
+            take=1+dp[i+1][i+1];
         }
+        nottake=dp[prev+1][i+1];
         
-        return al.size();
-    }
-    public void justGreaterorEqual(ArrayList<Integer> al,int x){
-        if(al.size()==1){
-            al.set(0,x);
-            return;
-        }
-        // 10 13 14  12
-        int i=0;
-        int j=al.size()-1;
-        int idx=0;
-        
-        while(i<=j){
-           int mid=(i+j)/2;
-            if(al.get(mid)<x)i=mid+1;
-            else if(al.get(mid)>x){
-                idx=mid;
-                j=mid-1;
-            }
-            else{
-                idx=mid;
-                break;
+        dp[prev+1][i]=Math.max(take,nottake);
             }
         }
-        al.set(idx,x);
-        return;
+        return dp[-1+1][0];
     }
-    
-    // 2 4 5 6 7 12
+
 }
